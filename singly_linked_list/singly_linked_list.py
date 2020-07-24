@@ -5,6 +5,17 @@ class Node:
         self.value = value
         self.next_node = next_node
 
+    def get_next(self):
+        return self.next_node
+
+    def set_next(self, node):
+        self.next_node = node
+
+    def remove_next(self):
+        self.next_node = None
+
+    def __str__(self):
+        return f"{self.data}"
 # A Linked List class with a single head node
 
 
@@ -12,36 +23,62 @@ class LinkedList:
     def __init__(self):
         self.head = None
         self.tail = None
+        self.size = 0
 
-    def add_to_head(self, value):
+    def __len__(self):
+        return self.size
+
+    def insert(self, value):
         new_node = Node(value)
         if(self.head is None and self.tail is None):
             self.head = new_node
             self.tail = new_node
+            self.size += 1
         else:
             new_node.next_node = self.head
             self.head = new_node
+            self.size += 1
 
-    def add_to_tail(self, value):
+    def append(self, value):
         new_node = Node(value)
-        if(self.head is None and self.tail is None):
+        if self.head is None and self.tail is None:
             self.head = new_node
             self.tail = new_node
+            self.size += 1
         else:
             self.tail.next_node = new_node
             self.tail = new_node
+            self.size += 1
 
-    def insert(self, value):
-        newNode = Node(value)
-        if(self.head):
-            current = self.head
-            while(current.next_node):
-                current = current.next_node
-            current.next_node = newNode
-        else:
-            self.head = newNode
+    def pop(self):
+        if self.tail is None and self.head is None:
+            return None
 
-    def remove_head(self):
+        if self.tail is self.head:
+            val = self.head.value
+            self.tail = None
+            self.head = None
+            self.size -= 1
+            return val
+
+        if self.head.next_node is self.tail:
+            val = self.tail.value
+            self.head.next_node = None
+            self.tail = self.head
+            self.size -= 1
+            return val
+        curr_val = self.head
+        while curr_val:
+            if curr_val.next_node.next_node is None:
+                val = curr_val.next_node.value
+                curr_val.next_node = None
+                self.tail = curr_val
+                self.size -= 1
+                return val
+
+            curr_val = curr_val.next_node
+
+    def shift(self):
         # If list is empty, do nothing
         if not self.head:
             return None
@@ -88,8 +125,8 @@ class LinkedList:
         return list_max
 
 
-LL = LinkedList()
-LL.insert(3)
-LL.insert(4)
-LL.insert(5)
-LL.printLL()
+# LL = LinkedList()
+# LL.insert(3)
+# LL.insert(4)
+# LL.insert(5)
+# LL.printLL()

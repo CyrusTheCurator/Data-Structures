@@ -1,6 +1,7 @@
 import unittest
 from queue import Queue
 
+
 class QueueTests(unittest.TestCase):
     def setUp(self):
         self.q = Queue()
@@ -26,6 +27,7 @@ class QueueTests(unittest.TestCase):
     def test_empty_dequeue(self):
         self.assertIsNone(self.q.dequeue())
         self.assertEqual(len(self.q), 0)
+    # 100 -> 101 -> 105
 
     def test_dequeue_respects_order(self):
         self.q.enqueue(100)
@@ -40,8 +42,6 @@ class QueueTests(unittest.TestCase):
         self.assertIsNone(self.q.dequeue())
         self.assertEqual(len(self.q), 0)
 
+
 if __name__ == '__main__':
     unittest.main()
-
-
-        
