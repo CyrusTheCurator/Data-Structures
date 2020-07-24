@@ -87,10 +87,12 @@ class LinkedList:
             head_value = self.head.value
             self.head = None
             self.tail = None
+            self.size -= 1
             return head_value
         # with more than one element in list, Do:
         head_value = self.head.value
         self.head = self.head.next_node
+        self.size -= 1
         return head_value
 
     def printLL(self):
