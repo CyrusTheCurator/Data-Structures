@@ -167,35 +167,22 @@ class DoublyLinkedList:
         # case 2: 2 items exist
         # case 3: more than 2 items exist
 
-        if not self.length:
+        if self.head is None and self.tail is None:
             return
-
-        if self.tail_is_heads():
-            self.reset()
-            return
-
-        if self.node_is_tails_or_head(node):
-            # connected_node will be the node that's
-            # connected to the node being deleted
-            # node.delete helper function will sever all connections to node
-            # then we set tail and heads to the connected node
-            connected_node = None
-            # we're only checking tails or heads
-            if node.prev:
-                connected_node = node.prev
-            elif node.next:
-                connected_node = node.next
-
-            if self.length == 2:
-                self.set_head_and_tail_to(connected_node)
-                return
-
-            if node is self.tail:
-                self.tail = connected_node
-            else:
-                self.head = connected_node
         self.length -= 1
-        node.self_destruct()
+
+        if self.head == self.tail and node == self.head:
+            self.head = None
+            self.tail = None
+
+        if self.head == node:
+            self.head = node.next
+            node.self_destruct()
+        if self.tail == node:
+            self.tail = node.prev
+            node.self_destruct()
+        else:
+            node.self_destruct()
 
     """Returns the highest value currently in the list"""
 
@@ -209,11 +196,11 @@ class DoublyLinkedList:
         return high
 
 
-# node = ListNode(44444444)
-# testin = DoublyLinkedList(node)
+node = ListNode(44444444)
+testin = DoublyLinkedList(node)
 
 
-# testin.add_to_tail(9090090900)
-# print(testin.head.__dict__)
-# testin.delete(node)
-# print(testin.head.__dict__)
+testin.add_to_tail(9090090900)
+print(testin.head.__dict__)
+testin.delete(node)
+print(testin.head.__dict__)
