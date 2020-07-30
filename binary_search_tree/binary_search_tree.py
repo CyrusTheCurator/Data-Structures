@@ -9,6 +9,11 @@ This part of the project comprises two days:
 2. Implement the `in_order_print`, `bft_print`, and `dft_print` methods
    on the BSTNode class.
 """
+import sys
+sys.path.append('..')
+from queues.queue import Queue
+from stack.stack import Stack
+
 
 
 class BSTNode:
@@ -76,18 +81,44 @@ class BSTNode:
 
     # Print all the values in order from low to high
     # Hint:  Use a recursive, depth first traversal
-    def in_order_print(self):
-        pass
+    def in_order_print(self):  # removed node param
+        if self.left:
+            self.left.in_order_print()
+        print(self.value)
+        if self.right:
+            self.right.in_order_print()
 
     # Print the value of every node, starting with the given node,
     # in an iterative breadth first traversal
     def bft_print(self):
-        pass
+        queue = Queue()
+        queue.enqueue(self)
+
+        while len(queue):
+            dequeued_node = queue.dequeue()
+            print(dequeued_node.value)
+            if dequeued_node.left:
+                queue.enqueue(dequeued_node.left)
+
+            if dequeued_node.right:
+                queue.enqueue(dequeued_node.right)
+
+
 
     # Print the value of every node, starting with the given node,
     # in an iterative depth first traversal
     def dft_print(self):
-        pass
+        stack = Stack()
+        stack.push(self)
+
+        while len(stack):
+            popped_node = stack.pop()
+            print(popped_node.value)
+            if popped_node.right:
+                stack.push(popped_node.right)
+            if popped_node.left:
+                stack.push(popped_node.left)
+ 
 
         # Stretch Goals -------------------------
         # Note: Research may be required
@@ -107,22 +138,18 @@ This code is necessary for testing the `print` methods
 """
 
 
-bst = BSTNode(1)
+bst = BSTNode(8)
 
-bst.insert(8)
-bst.insert(5)
-bst.insert(7)
-bst.insert(900)
 bst.insert(3)
-bst.insert(4)
+bst.insert(20)
 bst.insert(2)
+bst.insert(4)
+bst.insert(9)
+bst.insert(12)
 
 
-print(bst.contains(8))
-print(bst.get_max())
-
-bst.for_each(print)
-# bst.bft_print()
+# bst.in_order_print()
+bst.dft_print()
 # bst.dft_print()
 
 # print("elegant methods")

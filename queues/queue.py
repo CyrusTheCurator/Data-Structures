@@ -21,8 +21,8 @@ Stretch: What if you could only use instances of your Stack class to implement t
 
 
 class Queue:
-    def __init__(self, storage=LinkedList()):
-        self.storage = storage
+    def __init__(self):
+        self.storage = LinkedList()
 
     def __len__(self):
         return len(self.storage)
@@ -33,14 +33,3 @@ class Queue:
     def dequeue(self):
         return self.storage.shift()
 
-
-# test_arr = [3, 4, 5, 6, 7]
-test_linked_list = LinkedList()
-linked_list_queue = Queue(test_linked_list)
-linked_list_queue.enqueue(1)
-print(len(test_linked_list))
-
-# array_queue = Queue(test_arr)
-
-# print(array_queue.storage)
-linked_list_queue.storage.printLL()
