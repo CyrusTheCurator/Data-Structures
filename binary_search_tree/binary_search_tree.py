@@ -81,16 +81,16 @@ class BSTNode:
 
     # Print all the values in order from low to high
     # Hint:  Use a recursive, depth first traversal
-    def in_order_print(self):  # removed node param
+    def in_order_print(self, node):  # removed node param
         if self.left:
-            self.left.in_order_print()
+            self.left.in_order_print(self.left)
         print(self.value)
         if self.right:
-            self.right.in_order_print()
+            self.right.in_order_print(self.right)
 
     # Print the value of every node, starting with the given node,
     # in an iterative breadth first traversal
-    def bft_print(self):
+    def bft_print(self, node):
         queue = Queue()
         queue.enqueue(self)
 
@@ -107,7 +107,7 @@ class BSTNode:
 
     # Print the value of every node, starting with the given node,
     # in an iterative depth first traversal
-    def dft_print(self):
+    def dft_print(self, node):
         stack = Stack()
         stack.push(self)
 
@@ -125,12 +125,20 @@ class BSTNode:
 
         # Print Pre-order recursive DFT
 
-    def pre_order_dft(self):
-        pass
+    def pre_order_dft(self, node):
+        self.dft_print(node)
 
     # Print Post-order recursive DFT
-    def post_order_dft(self):
-        pass
+    def post_order_dft(self, node):
+
+        if self:
+            if self.left:
+                self.left.post_order_dft(self.left)
+
+            if self.right:
+                self.right.post_order_dft(self.right)
+            print(self.value)
+
 
 
 """
@@ -138,19 +146,21 @@ This code is necessary for testing the `print` methods
 """
 
 
-bst = BSTNode(8)
+bst = BSTNode(1)
 
-bst.insert(3)
-bst.insert(20)
-bst.insert(2)
-bst.insert(4)
-bst.insert(9)
-bst.insert(12)
+bst.left = BSTNode(2)
+bst.right = BSTNode(3)
+bst.left.left = BSTNode(4)
+bst.left.right = BSTNode(5)
 
 
-# bst.in_order_print()
-bst.dft_print()
-# bst.dft_print()
+
+print(f"------------------------------PRE ORDER TRAVERSAL------------------------")
+bst.pre_order_dft(bst)
+print(f"------------------------------IN ORDER TRAVERSAL------------------------")
+bst.in_order_print(bst)
+print(f"------------------------------POST ORDER TRAVERSAL------------------------")
+bst.post_order_dft(bst)
 
 # print("elegant methods")
 # print("pre order")
