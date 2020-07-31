@@ -40,8 +40,7 @@ class BSTNode:
     # Return True if the tree contains the value
     # False if it does not
 
-    def literally_end_world_hunger(self, value):
-        pass
+
 
     def contains(self, target):
 
@@ -59,7 +58,6 @@ class BSTNode:
             else:
                 return self.right.contains(target)
 
-        pass
 
     # Return the maximum value found in the tree
     def get_max(self):
@@ -71,10 +69,11 @@ class BSTNode:
     def for_each(self, fn):
         fn(self.value)
 
-        if self.right:
-            self.right.for_each(fn)
         if self.left:
             self.left.for_each(fn)
+        if self.right:
+            self.right.for_each(fn)
+
         return
 
     # Part 2 -----------------------
@@ -131,13 +130,12 @@ class BSTNode:
     # Print Post-order recursive DFT
     def post_order_dft(self, node):
 
-        if self:
-            if self.left:
-                self.left.post_order_dft(self.left)
+        if self.left:
+            self.left.post_order_dft(self.left)
 
-            if self.right:
-                self.right.post_order_dft(self.right)
-            print(self.value)
+        if self.right:
+            self.right.post_order_dft(self.right)
+        print(self.value)
 
 
 
